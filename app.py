@@ -60,8 +60,8 @@ def main():
     date_predict = p1.date_input('Select date', dt.date.today(), key='1') 
 
     # Get time input
-    time_now_predict = dt.datetime.now()
-    # time_now_predict = dt.datetime.now() + dt.timedelta(hours=8)
+    # time_now_predict = dt.datetime.now()
+    time_now_predict = dt.datetime.now() + dt.timedelta(hours=8)
 
     time_now_predict = time_now_predict.strftime("%H:%M")
     time_now_predict = p2.text_input("Enter time", value=time_now_predict, key='1') 
