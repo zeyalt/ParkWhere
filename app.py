@@ -76,7 +76,7 @@ def main():
 
     pred_fig_pie = go.Figure()
     pred_fig_pie.add_trace(go.Pie(labels=model.classes_, values=pred_proba, hole=0.7))
-    pred_fig_pie.update_layout(autosize=False, width=500, height=200, margin=dict(
+    pred_fig_pie.update_layout(autosize=False, width=600, height=200, margin=dict(
         l=10,
         r=10,
         b=10,
@@ -96,10 +96,8 @@ def main():
 
     with st.expander('View prediction results'):
         
-        e1, e2 = st.columns([0.1, 0.5])
-
-        e1.markdown(f"#### {pred} (with {proba} probability)")
-        e2.plotly_chart(pred_fig_pie)
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{pred} (with {proba} probability)</h1>", unsafe_allow_html=True)
+        st.plotly_chart(pred_fig_pie)
 
 if __name__ == "__main__":
     main()
