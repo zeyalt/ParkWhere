@@ -76,7 +76,7 @@ def main():
     pred = model.predict(predict_df)[0]
     pred_proba = model.predict_proba(predict_df)[0]
     
-    # Create a donut chart 
+    # Create a static donut chart 
     labels = [i+"\n"+str(round(j,3)) for i, j in zip(model.classes_, pred_proba)]
     plt.figure(figsize=(6,6))
     fig = plt.pie(pred_proba, labels=labels, colors=['green', 'red'])
