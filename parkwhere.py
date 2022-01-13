@@ -28,7 +28,7 @@ def extract_all_features(data, year='2021'):
     
     df = data.copy()
     # df['date_time'] = pd.to_datetime(df['date_time'], format='%d/%m/%Y %H:%M')
-    df['date_time'] = pd.to_datetime(df['date_time'])
+    # df['date_time'] = pd.to_datetime(df['date_time'])
 
     
     # Create new features from `date_time`
