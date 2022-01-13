@@ -2,7 +2,7 @@
 
 ParkWhere is a web application that helps me predict parking availability at my apartment block. 
 
-![image](pictures/parkwhere_demo_gif.gif)
+![image](https://github.com/zeyalt/ParkWhere/blob/master/parkwhere_demo_gif.gif "GIF image")
 
 Check out ParkWhere at this [link](https://share.streamlit.io/zeyalt/parkwhere/app.py)!
 
