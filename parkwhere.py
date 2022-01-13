@@ -1,13 +1,11 @@
 import numpy as np
 import requests
-
 from datetime import datetime, timedelta
 
 def parse_date(date_string):
     """Parse a date string in YYYY-MM-DD format as a datetime object."""
     
     return datetime.strptime(date_string, '%Y-%m-%d').date()
-
 
 def get_ph_and_eve(year='2021'):
     """Return lists of parsed dates for Singapore's public holidays and public holday eves."""
@@ -24,10 +22,11 @@ def get_ph_and_eve(year='2021'):
     
     return ph_parsed, eve_parsed
 
-def extract_all_features(data):
+def extract_all_features(data, year='2021'):
     """Extract all features given a DataFrame containing a datetime string in YYYY-MM-DD HH:MM:SS format."""
     
     df = data.copy()
+    df['date_time'] = pd.to_datetime(df['date_time'], format='%d/%m/%Y %H:%M')
     
     # Create new features from `date_time`
     df['year'] = df['date_time'].dt.year
@@ -39,14 +38,7 @@ def extract_all_features(data):
     df['date'] = df['date_time'].dt.date
     df['time'] = df['date_time'].dt.strftime('%H:%M')
     df['hour_min'] = round(df['hour'] + (df['minute'] / 60), 1)
-
-    # Create features for dates of public holidays and public holiday eves
-    ph, eve = get_ph_and_eve(year='2021')
-    df['ph'] = np.where(df['date'].isin(ph), 'ph', '')
-    df['eve'] = np.where(df['date'].isin(eve), 'eve', '')
-    df['ph_eve'] = df['ph'] + df['eve']
-    df['ph_eve'].replace('', 'nil', inplace=True)
-    
+   
     # Convert `month` to categorical
     df['month'].replace({1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
                          7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}, inplace=True)
@@ -67,11 +59,18 @@ def extract_all_features(data):
     df['hour'] = df['hour'].astype('category') 
     df['hour'].cat.set_categories(new_categories=list(range(24)), ordered=True, inplace=True)
 
+    # Create features for dates of public holidays and public holiday eves
+    ph, eve = get_ph_and_eve(year=year)
+    df['ph'] = np.where(df['date'].isin(ph), 'ph', '')
+    df['eve'] = np.where(df['date'].isin(eve), 'eve', '')
+    df['ph_eve'] = df['ph'] + df['eve']
+    df['ph_eve'].replace('', 'nil', inplace=True)
+
     # Select and rearrange columns
     try:
-        df = df[['date', 'time', 'year', 'month', 'day', 'day_of_week', 'hour', 'minute', 'hour_min', 'ph_eve', 'parking_zone']] 
+        df = df[['date', 'time', 'month', 'day', 'day_of_week', 'hour', 'minute', 'hour_min', 'ph_eve', 'parking_zone']] 
 
     except KeyError:
-        df = df[['date', 'time', 'year', 'month', 'day', 'day_of_week', 'hour', 'minute', 'hour_min', 'ph_eve']] 
+        df = df[['date', 'time', 'month', 'day', 'day_of_week', 'hour', 'minute', 'hour_min', 'ph_eve']] 
           
     return df
