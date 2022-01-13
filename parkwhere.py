@@ -1,5 +1,6 @@
 import numpy as np
 import requests
+import pandas as pd
 from datetime import datetime, timedelta
 
 def parse_date(date_string):
@@ -26,7 +27,9 @@ def extract_all_features(data, year='2021'):
     """Extract all features given a DataFrame containing a datetime string in YYYY-MM-DD HH:MM:SS format."""
     
     df = data.copy()
-    df['date_time'] = pd.to_datetime(df['date_time'], format='%d/%m/%Y %H:%M')
+    # df['date_time'] = pd.to_datetime(df['date_time'], format='%d/%m/%Y %H:%M')
+    df['date_time'] = pd.to_datetime(df['date_time'])
+
     
     # Create new features from `date_time`
     df['year'] = df['date_time'].dt.year
