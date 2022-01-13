@@ -12,7 +12,7 @@ Parking spaces are always limited at the apartment block where I live. Very ofte
     
 It's especially frustrating when there are things to carry from the car and an active toddler to manage!
     
-One day, an idea popped into my head \U0001F4A1! Why not collect some data myself, and put data science into action? 
+One day, an idea popped into my head! Why not collect some data myself, and put data science into action? 
 
 ## How does it work?
 
@@ -20,4 +20,4 @@ I divided available parking spaces at my apartment block into four zones, 'Zone 
     
 Using the collected data, I trained a binary classification model using Logistic Regression that predicts, given a specific time I return home, how likely I will find a parking lot nearest to my block.
 
-If you're interested in how I developed ParkWhere, check out this Medium article.
+If you're interested in more details of how I developed ParkWhere, check out this Medium article.
